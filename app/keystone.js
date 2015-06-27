@@ -13,7 +13,7 @@ keystone.init({
   'name': 'Shawn Brock',
   'brand': 'Shawn Brock',
 
-  'mongo': process.env.MONGO_PORT,
+  'mongo': 'mongodb://' + process.env.MONGO_1_PORT_27017_TCP_ADDR,
   'sass': 'public',
   'static': 'public',
   'favicon': 'public/favicon.ico',
