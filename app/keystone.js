@@ -15,6 +15,12 @@ keystone.init({
 
   'mongo': 'mongodb://' + process.env.MONGO_1_PORT_27017_TCP_ADDR,
   'sass': 'public',
+  'sass options': {
+    includePaths: [
+      '/node_modules',
+      '/node_modules/bootstrap-sass/assets/stylesheets'
+    ]
+  },
   'static': 'public',
   'favicon': 'public/favicon.ico',
   'views': 'templates/views',

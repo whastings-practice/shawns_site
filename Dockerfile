@@ -11,4 +11,3 @@ RUN npm install
 # Start app.
 WORKDIR /app
 ENTRYPOINT ["node", "keystone.js"]
-#ENTRYPOINT ["node", "test.js"]
