@@ -27,4 +27,4 @@ RUN npm install
 
 # Start app.
 WORKDIR /app
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["gulp", "serve"]
