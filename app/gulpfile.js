@@ -1,7 +1,8 @@
-var gulp = require('gulp'),
+var env = require('dotenv'),
+    gulp = require('gulp'),
     nodemon = require('gulp-nodemon');
 
-require('dotenv').load();
+env.load();
 
 var NODE_ENV = process.env.NODE_ENV,
     PATHS = {
@@ -13,6 +14,9 @@ gulp.task('serve', function() {
     require('./keystone.js');
   } else {
     nodemon({
+      execMap: {
+        js: 'babel-node --harmony --blacklist=regenerator'
+      },
       script: 'keystone.js'
     });
   }
