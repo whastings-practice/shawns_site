@@ -1,5 +1,7 @@
 mongo:
   image: mongo
+  volumes:
+  - ./data:/data/db
 app:
   build: .
   links:
