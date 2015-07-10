@@ -8,7 +8,11 @@
  * modules in your project's /lib directory.
  */
 
-var _ = require('underscore');
+var _ = require('underscore'),
+    co = require('co'),
+    keystone = require('keystone');
+
+var Page = keystone.list('Page');
 
 
 /**
@@ -20,18 +24,16 @@ var _ = require('underscore');
 */
 
 exports.initLocals = function(req, res, next) {
+  co(function*() {
+    var locals = res.locals,
+        navLinks = yield getNavLinks();
 
-  var locals = res.locals;
+    locals.navLinks = navLinks;
 
-  locals.navLinks = [
-    { label: 'Home', key: 'home', href: '/' },
-    { label: 'Contact', key: 'contact', href: '/contact' }
-  ];
+    locals.user = req.user;
 
-  locals.user = req.user;
-
-  next();
-
+    next();
+  });
 };
 
 
@@ -69,3 +71,15 @@ exports.requireUser = function(req, res, next) {
   }
 
 };
+
+function getNavLinks() {
+  return Page.model.find().exec()
+    .then(function(pages) {
+      console.log(pages);
+      return pages.map(function(page) {
+        var { title, permalink } = page,
+            path = (permalink === 'home') ? '/' : `/${permalink}`;
+        return {label: title, key: permalink, href: path};
+      });
+    });
+}
