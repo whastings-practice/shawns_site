@@ -75,7 +75,6 @@ exports.requireUser = function(req, res, next) {
 function getNavLinks() {
   return Page.model.find().exec()
     .then(function(pages) {
-      console.log(pages);
       return pages.map(function(page) {
         var { title, permalink } = page,
             path = (permalink === 'home') ? '/' : `/${permalink}`;
